@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxcf.core.mapper.AccountflowMapper">
+  <resultMap id="BaseResultMap" type="com.zxcf.core.entity.Accountflow">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="tradeTime" jdbcType="TIMESTAMP" property="tradetime" />
+    <result column="actionType" jdbcType="TINYINT" property="actiontype" />
+    <result column="account_id" jdbcType="BIGINT" property="accountId" />
+    <result column="usableAmount" jdbcType="DECIMAL" property="usableamount" />
+    <result column="freezedAmount" jdbcType="DECIMAL" property="freezedamount" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, amount, note, tradeTime, actionType, account_id, usableAmount, freezedAmount
+  </sql>
+  <select id="selectByExample" parameterType="com.zxcf.core.entity.AccountflowExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from accountflow
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from accountflow
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from accountflow
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zxcf.core.entity.AccountflowExample">
+    delete from accountflow
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zxcf.core.entity.Accountflow">
+    insert into accountflow (id, amount, note, 
+      tradeTime, actionType, account_id, 
+      usableAmount, freezedAmount)
+    values (#{id,jdbcType=BIGINT}, #{amount,jdbcType=DECIMAL}, #{note,jdbcType=VARCHAR}, 
+      #{tradetime,jdbcType=TIMESTAMP}, #{actiontype,jdbcType=TINYINT}, #{accountId,jdbcType=BIGINT}, 
+      #{usableamount,jdbcType=DECIMAL}, #{freezedamount,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxcf.core.entity.Accountflow">
+    insert into accountflow
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+      <if test="tradetime != null">
+        tradeTime,
+      </if>
+      <if test="actiontype != null">
+        actionType,
+      </if>
+      <if test="accountId != null">
+        account_id,
+      </if>
+      <if test="usableamount != null">
+        usableAmount,
+      </if>
+      <if test="freezedamount != null">
+        freezedAmount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="tradetime != null">
+        #{tradetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="actiontype != null">
+        #{actiontype,jdbcType=TINYINT},
+      </if>
+      <if test="accountId != null">
+        #{accountId,jdbcType=BIGINT},
+      </if>
+      <if test="usableamount != null">
+        #{usableamount,jdbcType=DECIMAL},
+      </if>
+      <if test="freezedamount != null">
+        #{freezedamount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zxcf.core.entity.AccountflowExample" resultType="java.lang.Long">
+    select count(*) from accountflow
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update accountflow
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.amount != null">
+        amount = #{record.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.note != null">
+        note = #{record.note,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradetime != null">
+        tradeTime = #{record.tradetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.actiontype != null">
+        actionType = #{record.actiontype,jdbcType=TINYINT},
+      </if>
+      <if test="record.accountId != null">
+        account_id = #{record.accountId,jdbcType=BIGINT},
+      </if>
+      <if test="record.usableamount != null">
+        usableAmount = #{record.usableamount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.freezedamount != null">
+        freezedAmount = #{record.freezedamount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update accountflow
+    set id = #{record.id,jdbcType=BIGINT},
+      amount = #{record.amount,jdbcType=DECIMAL},
+      note = #{record.note,jdbcType=VARCHAR},
+      tradeTime = #{record.tradetime,jdbcType=TIMESTAMP},
+      actionType = #{record.actiontype,jdbcType=TINYINT},
+      account_id = #{record.accountId,jdbcType=BIGINT},
+      usableAmount = #{record.usableamount,jdbcType=DECIMAL},
+      freezedAmount = #{record.freezedamount,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxcf.core.entity.Accountflow">
+    update accountflow
+    <set>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="tradetime != null">
+        tradeTime = #{tradetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="actiontype != null">
+        actionType = #{actiontype,jdbcType=TINYINT},
+      </if>
+      <if test="accountId != null">
+        account_id = #{accountId,jdbcType=BIGINT},
+      </if>
+      <if test="usableamount != null">
+        usableAmount = #{usableamount,jdbcType=DECIMAL},
+      </if>
+      <if test="freezedamount != null">
+        freezedAmount = #{freezedamount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxcf.core.entity.Accountflow">
+    update accountflow
+    set amount = #{amount,jdbcType=DECIMAL},
+      note = #{note,jdbcType=VARCHAR},
+      tradeTime = #{tradetime,jdbcType=TIMESTAMP},
+      actionType = #{actiontype,jdbcType=TINYINT},
+      account_id = #{accountId,jdbcType=BIGINT},
+      usableAmount = #{usableamount,jdbcType=DECIMAL},
+      freezedAmount = #{freezedamount,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

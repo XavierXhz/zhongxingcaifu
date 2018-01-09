@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxcf.core.mapper.AccountMapper">
+  <resultMap id="BaseResultMap" type="com.zxcf.core.entity.Account">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="tradePassword" jdbcType="VARCHAR" property="tradepassword" />
+    <result column="usableAmount" jdbcType="DECIMAL" property="usableamount" />
+    <result column="freezedAmount" jdbcType="DECIMAL" property="freezedamount" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="unReceiveInterest" jdbcType="DECIMAL" property="unreceiveinterest" />
+    <result column="unReceivePrincipal" jdbcType="DECIMAL" property="unreceiveprincipal" />
+    <result column="unReturnAmount" jdbcType="DECIMAL" property="unreturnamount" />
+    <result column="remainBorrowLimit" jdbcType="DECIMAL" property="remainborrowlimit" />
+    <result column="borrowLimit" jdbcType="DECIMAL" property="borrowlimit" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, tradePassword, usableAmount, freezedAmount, version, unReceiveInterest, unReceivePrincipal, 
+    unReturnAmount, remainBorrowLimit, borrowLimit
+  </sql>
+  <select id="selectByExample" parameterType="com.zxcf.core.entity.AccountExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from account
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from account
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zxcf.core.entity.AccountExample">
+    delete from account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zxcf.core.entity.Account">
+    insert into account (id, tradePassword, usableAmount, 
+      freezedAmount, version, unReceiveInterest, 
+      unReceivePrincipal, unReturnAmount, remainBorrowLimit, 
+      borrowLimit)
+    values (#{id,jdbcType=BIGINT}, #{tradepassword,jdbcType=VARCHAR}, #{usableamount,jdbcType=DECIMAL}, 
+      #{freezedamount,jdbcType=DECIMAL}, #{version,jdbcType=INTEGER}, #{unreceiveinterest,jdbcType=DECIMAL}, 
+      #{unreceiveprincipal,jdbcType=DECIMAL}, #{unreturnamount,jdbcType=DECIMAL}, #{remainborrowlimit,jdbcType=DECIMAL}, 
+      #{borrowlimit,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxcf.core.entity.Account">
+    insert into account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="tradepassword != null">
+        tradePassword,
+      </if>
+      <if test="usableamount != null">
+        usableAmount,
+      </if>
+      <if test="freezedamount != null">
+        freezedAmount,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="unreceiveinterest != null">
+        unReceiveInterest,
+      </if>
+      <if test="unreceiveprincipal != null">
+        unReceivePrincipal,
+      </if>
+      <if test="unreturnamount != null">
+        unReturnAmount,
+      </if>
+      <if test="remainborrowlimit != null">
+        remainBorrowLimit,
+      </if>
+      <if test="borrowlimit != null">
+        borrowLimit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="tradepassword != null">
+        #{tradepassword,jdbcType=VARCHAR},
+      </if>
+      <if test="usableamount != null">
+        #{usableamount,jdbcType=DECIMAL},
+      </if>
+      <if test="freezedamount != null">
+        #{freezedamount,jdbcType=DECIMAL},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="unreceiveinterest != null">
+        #{unreceiveinterest,jdbcType=DECIMAL},
+      </if>
+      <if test="unreceiveprincipal != null">
+        #{unreceiveprincipal,jdbcType=DECIMAL},
+      </if>
+      <if test="unreturnamount != null">
+        #{unreturnamount,jdbcType=DECIMAL},
+      </if>
+      <if test="remainborrowlimit != null">
+        #{remainborrowlimit,jdbcType=DECIMAL},
+      </if>
+      <if test="borrowlimit != null">
+        #{borrowlimit,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zxcf.core.entity.AccountExample" resultType="java.lang.Long">
+    select count(*) from account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update account
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.tradepassword != null">
+        tradePassword = #{record.tradepassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usableamount != null">
+        usableAmount = #{record.usableamount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.freezedamount != null">
+        freezedAmount = #{record.freezedamount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.version != null">
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+      <if test="record.unreceiveinterest != null">
+        unReceiveInterest = #{record.unreceiveinterest,jdbcType=DECIMAL},
+      </if>
+      <if test="record.unreceiveprincipal != null">
+        unReceivePrincipal = #{record.unreceiveprincipal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.unreturnamount != null">
+        unReturnAmount = #{record.unreturnamount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remainborrowlimit != null">
+        remainBorrowLimit = #{record.remainborrowlimit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.borrowlimit != null">
+        borrowLimit = #{record.borrowlimit,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update account
+    set id = #{record.id,jdbcType=BIGINT},
+      tradePassword = #{record.tradepassword,jdbcType=VARCHAR},
+      usableAmount = #{record.usableamount,jdbcType=DECIMAL},
+      freezedAmount = #{record.freezedamount,jdbcType=DECIMAL},
+      version = #{record.version,jdbcType=INTEGER},
+      unReceiveInterest = #{record.unreceiveinterest,jdbcType=DECIMAL},
+      unReceivePrincipal = #{record.unreceiveprincipal,jdbcType=DECIMAL},
+      unReturnAmount = #{record.unreturnamount,jdbcType=DECIMAL},
+      remainBorrowLimit = #{record.remainborrowlimit,jdbcType=DECIMAL},
+      borrowLimit = #{record.borrowlimit,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxcf.core.entity.Account">
+    update account
+    <set>
+      <if test="tradepassword != null">
+        tradePassword = #{tradepassword,jdbcType=VARCHAR},
+      </if>
+      <if test="usableamount != null">
+        usableAmount = #{usableamount,jdbcType=DECIMAL},
+      </if>
+      <if test="freezedamount != null">
+        freezedAmount = #{freezedamount,jdbcType=DECIMAL},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="unreceiveinterest != null">
+        unReceiveInterest = #{unreceiveinterest,jdbcType=DECIMAL},
+      </if>
+      <if test="unreceiveprincipal != null">
+        unReceivePrincipal = #{unreceiveprincipal,jdbcType=DECIMAL},
+      </if>
+      <if test="unreturnamount != null">
+        unReturnAmount = #{unreturnamount,jdbcType=DECIMAL},
+      </if>
+      <if test="remainborrowlimit != null">
+        remainBorrowLimit = #{remainborrowlimit,jdbcType=DECIMAL},
+      </if>
+      <if test="borrowlimit != null">
+        borrowLimit = #{borrowlimit,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxcf.core.entity.Account">
+    update account
+    set tradePassword = #{tradepassword,jdbcType=VARCHAR},
+      usableAmount = #{usableamount,jdbcType=DECIMAL},
+      freezedAmount = #{freezedamount,jdbcType=DECIMAL},
+      version = #{version,jdbcType=INTEGER},
+      unReceiveInterest = #{unreceiveinterest,jdbcType=DECIMAL},
+      unReceivePrincipal = #{unreceiveprincipal,jdbcType=DECIMAL},
+      unReturnAmount = #{unreturnamount,jdbcType=DECIMAL},
+      remainBorrowLimit = #{remainborrowlimit,jdbcType=DECIMAL},
+      borrowLimit = #{borrowlimit,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

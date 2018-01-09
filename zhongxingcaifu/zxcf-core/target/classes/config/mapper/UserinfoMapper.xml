@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxcf.core.mapper.UserinfoMapper">
+  <resultMap id="BaseResultMap" type="com.zxcf.core.entity.Userinfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="bitState" jdbcType="BIGINT" property="bitstate" />
+    <result column="realName" jdbcType="VARCHAR" property="realname" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="realAuthId" jdbcType="BIGINT" property="realauthid" />
+    <result column="idNumber" jdbcType="VARCHAR" property="idnumber" />
+    <result column="phoneNumber" jdbcType="VARCHAR" property="phonenumber" />
+    <result column="incomeGrade_id" jdbcType="BIGINT" property="incomegradeId" />
+    <result column="marriage_id" jdbcType="BIGINT" property="marriageId" />
+    <result column="kidCount_id" jdbcType="BIGINT" property="kidcountId" />
+    <result column="educationBackground_id" jdbcType="BIGINT" property="educationbackgroundId" />
+    <result column="houseCondition_id" jdbcType="BIGINT" property="houseconditionId" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, version, bitState, realName, score, realAuthId, idNumber, phoneNumber, incomeGrade_id, 
+    marriage_id, kidCount_id, educationBackground_id, houseCondition_id, email
+  </sql>
+  <select id="selectByExample" parameterType="com.zxcf.core.entity.UserinfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from userinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from userinfo
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from userinfo
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zxcf.core.entity.UserinfoExample">
+    delete from userinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zxcf.core.entity.Userinfo">
+    insert into userinfo (id, version, bitState, 
+      realName, score, realAuthId, 
+      idNumber, phoneNumber, incomeGrade_id, 
+      marriage_id, kidCount_id, educationBackground_id, 
+      houseCondition_id, email)
+    values (#{id,jdbcType=BIGINT}, #{version,jdbcType=INTEGER}, #{bitstate,jdbcType=BIGINT}, 
+      #{realname,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, #{realauthid,jdbcType=BIGINT}, 
+      #{idnumber,jdbcType=VARCHAR}, #{phonenumber,jdbcType=VARCHAR}, #{incomegradeId,jdbcType=BIGINT}, 
+      #{marriageId,jdbcType=BIGINT}, #{kidcountId,jdbcType=BIGINT}, #{educationbackgroundId,jdbcType=BIGINT}, 
+      #{houseconditionId,jdbcType=BIGINT}, #{email,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxcf.core.entity.Userinfo">
+    insert into userinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="bitstate != null">
+        bitState,
+      </if>
+      <if test="realname != null">
+        realName,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="realauthid != null">
+        realAuthId,
+      </if>
+      <if test="idnumber != null">
+        idNumber,
+      </if>
+      <if test="phonenumber != null">
+        phoneNumber,
+      </if>
+      <if test="incomegradeId != null">
+        incomeGrade_id,
+      </if>
+      <if test="marriageId != null">
+        marriage_id,
+      </if>
+      <if test="kidcountId != null">
+        kidCount_id,
+      </if>
+      <if test="educationbackgroundId != null">
+        educationBackground_id,
+      </if>
+      <if test="houseconditionId != null">
+        houseCondition_id,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="bitstate != null">
+        #{bitstate,jdbcType=BIGINT},
+      </if>
+      <if test="realname != null">
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="realauthid != null">
+        #{realauthid,jdbcType=BIGINT},
+      </if>
+      <if test="idnumber != null">
+        #{idnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenumber != null">
+        #{phonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="incomegradeId != null">
+        #{incomegradeId,jdbcType=BIGINT},
+      </if>
+      <if test="marriageId != null">
+        #{marriageId,jdbcType=BIGINT},
+      </if>
+      <if test="kidcountId != null">
+        #{kidcountId,jdbcType=BIGINT},
+      </if>
+      <if test="educationbackgroundId != null">
+        #{educationbackgroundId,jdbcType=BIGINT},
+      </if>
+      <if test="houseconditionId != null">
+        #{houseconditionId,jdbcType=BIGINT},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zxcf.core.entity.UserinfoExample" resultType="java.lang.Long">
+    select count(*) from userinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update userinfo
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.version != null">
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+      <if test="record.bitstate != null">
+        bitState = #{record.bitstate,jdbcType=BIGINT},
+      </if>
+      <if test="record.realname != null">
+        realName = #{record.realname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.score != null">
+        score = #{record.score,jdbcType=INTEGER},
+      </if>
+      <if test="record.realauthid != null">
+        realAuthId = #{record.realauthid,jdbcType=BIGINT},
+      </if>
+      <if test="record.idnumber != null">
+        idNumber = #{record.idnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phonenumber != null">
+        phoneNumber = #{record.phonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.incomegradeId != null">
+        incomeGrade_id = #{record.incomegradeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.marriageId != null">
+        marriage_id = #{record.marriageId,jdbcType=BIGINT},
+      </if>
+      <if test="record.kidcountId != null">
+        kidCount_id = #{record.kidcountId,jdbcType=BIGINT},
+      </if>
+      <if test="record.educationbackgroundId != null">
+        educationBackground_id = #{record.educationbackgroundId,jdbcType=BIGINT},
+      </if>
+      <if test="record.houseconditionId != null">
+        houseCondition_id = #{record.houseconditionId,jdbcType=BIGINT},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update userinfo
+    set id = #{record.id,jdbcType=BIGINT},
+      version = #{record.version,jdbcType=INTEGER},
+      bitState = #{record.bitstate,jdbcType=BIGINT},
+      realName = #{record.realname,jdbcType=VARCHAR},
+      score = #{record.score,jdbcType=INTEGER},
+      realAuthId = #{record.realauthid,jdbcType=BIGINT},
+      idNumber = #{record.idnumber,jdbcType=VARCHAR},
+      phoneNumber = #{record.phonenumber,jdbcType=VARCHAR},
+      incomeGrade_id = #{record.incomegradeId,jdbcType=BIGINT},
+      marriage_id = #{record.marriageId,jdbcType=BIGINT},
+      kidCount_id = #{record.kidcountId,jdbcType=BIGINT},
+      educationBackground_id = #{record.educationbackgroundId,jdbcType=BIGINT},
+      houseCondition_id = #{record.houseconditionId,jdbcType=BIGINT},
+      email = #{record.email,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxcf.core.entity.Userinfo">
+    update userinfo
+    <set>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="bitstate != null">
+        bitState = #{bitstate,jdbcType=BIGINT},
+      </if>
+      <if test="realname != null">
+        realName = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="realauthid != null">
+        realAuthId = #{realauthid,jdbcType=BIGINT},
+      </if>
+      <if test="idnumber != null">
+        idNumber = #{idnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenumber != null">
+        phoneNumber = #{phonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="incomegradeId != null">
+        incomeGrade_id = #{incomegradeId,jdbcType=BIGINT},
+      </if>
+      <if test="marriageId != null">
+        marriage_id = #{marriageId,jdbcType=BIGINT},
+      </if>
+      <if test="kidcountId != null">
+        kidCount_id = #{kidcountId,jdbcType=BIGINT},
+      </if>
+      <if test="educationbackgroundId != null">
+        educationBackground_id = #{educationbackgroundId,jdbcType=BIGINT},
+      </if>
+      <if test="houseconditionId != null">
+        houseCondition_id = #{houseconditionId,jdbcType=BIGINT},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxcf.core.entity.Userinfo">
+    update userinfo
+    set version = #{version,jdbcType=INTEGER},
+      bitState = #{bitstate,jdbcType=BIGINT},
+      realName = #{realname,jdbcType=VARCHAR},
+      score = #{score,jdbcType=INTEGER},
+      realAuthId = #{realauthid,jdbcType=BIGINT},
+      idNumber = #{idnumber,jdbcType=VARCHAR},
+      phoneNumber = #{phonenumber,jdbcType=VARCHAR},
+      incomeGrade_id = #{incomegradeId,jdbcType=BIGINT},
+      marriage_id = #{marriageId,jdbcType=BIGINT},
+      kidCount_id = #{kidcountId,jdbcType=BIGINT},
+      educationBackground_id = #{educationbackgroundId,jdbcType=BIGINT},
+      houseCondition_id = #{houseconditionId,jdbcType=BIGINT},
+      email = #{email,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

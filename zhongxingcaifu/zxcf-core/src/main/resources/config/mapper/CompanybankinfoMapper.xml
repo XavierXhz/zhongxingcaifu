@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxcf.core.mapper.CompanybankinfoMapper">
+  <resultMap id="BaseResultMap" type="com.zxcf.core.entity.Companybankinfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="bankname" jdbcType="VARCHAR" property="bankname" />
+    <result column="accountname" jdbcType="VARCHAR" property="accountname" />
+    <result column="banknumber" jdbcType="VARCHAR" property="banknumber" />
+    <result column="bankforkname" jdbcType="VARCHAR" property="bankforkname" />
+    <result column="iconCls" jdbcType="VARCHAR" property="iconcls" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, bankname, accountname, banknumber, bankforkname, iconCls
+  </sql>
+  <select id="selectByExample" parameterType="com.zxcf.core.entity.CompanybankinfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from companybankinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from companybankinfo
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from companybankinfo
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zxcf.core.entity.CompanybankinfoExample">
+    delete from companybankinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zxcf.core.entity.Companybankinfo">
+    insert into companybankinfo (id, bankname, accountname, 
+      banknumber, bankforkname, iconCls
+      )
+    values (#{id,jdbcType=BIGINT}, #{bankname,jdbcType=VARCHAR}, #{accountname,jdbcType=VARCHAR}, 
+      #{banknumber,jdbcType=VARCHAR}, #{bankforkname,jdbcType=VARCHAR}, #{iconcls,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxcf.core.entity.Companybankinfo">
+    insert into companybankinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="bankname != null">
+        bankname,
+      </if>
+      <if test="accountname != null">
+        accountname,
+      </if>
+      <if test="banknumber != null">
+        banknumber,
+      </if>
+      <if test="bankforkname != null">
+        bankforkname,
+      </if>
+      <if test="iconcls != null">
+        iconCls,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="bankname != null">
+        #{bankname,jdbcType=VARCHAR},
+      </if>
+      <if test="accountname != null">
+        #{accountname,jdbcType=VARCHAR},
+      </if>
+      <if test="banknumber != null">
+        #{banknumber,jdbcType=VARCHAR},
+      </if>
+      <if test="bankforkname != null">
+        #{bankforkname,jdbcType=VARCHAR},
+      </if>
+      <if test="iconcls != null">
+        #{iconcls,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zxcf.core.entity.CompanybankinfoExample" resultType="java.lang.Long">
+    select count(*) from companybankinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update companybankinfo
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.bankname != null">
+        bankname = #{record.bankname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountname != null">
+        accountname = #{record.accountname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.banknumber != null">
+        banknumber = #{record.banknumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankforkname != null">
+        bankforkname = #{record.bankforkname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iconcls != null">
+        iconCls = #{record.iconcls,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update companybankinfo
+    set id = #{record.id,jdbcType=BIGINT},
+      bankname = #{record.bankname,jdbcType=VARCHAR},
+      accountname = #{record.accountname,jdbcType=VARCHAR},
+      banknumber = #{record.banknumber,jdbcType=VARCHAR},
+      bankforkname = #{record.bankforkname,jdbcType=VARCHAR},
+      iconCls = #{record.iconcls,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxcf.core.entity.Companybankinfo">
+    update companybankinfo
+    <set>
+      <if test="bankname != null">
+        bankname = #{bankname,jdbcType=VARCHAR},
+      </if>
+      <if test="accountname != null">
+        accountname = #{accountname,jdbcType=VARCHAR},
+      </if>
+      <if test="banknumber != null">
+        banknumber = #{banknumber,jdbcType=VARCHAR},
+      </if>
+      <if test="bankforkname != null">
+        bankforkname = #{bankforkname,jdbcType=VARCHAR},
+      </if>
+      <if test="iconcls != null">
+        iconCls = #{iconcls,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxcf.core.entity.Companybankinfo">
+    update companybankinfo
+    set bankname = #{bankname,jdbcType=VARCHAR},
+      accountname = #{accountname,jdbcType=VARCHAR},
+      banknumber = #{banknumber,jdbcType=VARCHAR},
+      bankforkname = #{bankforkname,jdbcType=VARCHAR},
+      iconCls = #{iconcls,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

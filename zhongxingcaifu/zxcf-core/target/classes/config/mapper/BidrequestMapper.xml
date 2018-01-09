@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxcf.core.mapper.BidrequestMapper">
+  <resultMap id="BaseResultMap" type="com.zxcf.core.entity.Bidrequest">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="returnType" jdbcType="INTEGER" property="returntype" />
+    <result column="bidRequestType" jdbcType="TINYINT" property="bidrequesttype" />
+    <result column="bidRequestState" jdbcType="TINYINT" property="bidrequeststate" />
+    <result column="bidRequestAmount" jdbcType="DECIMAL" property="bidrequestamount" />
+    <result column="currentRate" jdbcType="DECIMAL" property="currentrate" />
+    <result column="monthes2Return" jdbcType="TINYINT" property="monthes2return" />
+    <result column="bidCount" jdbcType="INTEGER" property="bidcount" />
+    <result column="totalRewardAmount" jdbcType="DECIMAL" property="totalrewardamount" />
+    <result column="currentSum" jdbcType="DECIMAL" property="currentsum" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="disableDate" jdbcType="TIMESTAMP" property="disabledate" />
+    <result column="createuser_id" jdbcType="BIGINT" property="createuserId" />
+    <result column="disableDays" jdbcType="TINYINT" property="disabledays" />
+    <result column="minBidAmount" jdbcType="DECIMAL" property="minbidamount" />
+    <result column="applyTime" jdbcType="TIMESTAMP" property="applytime" />
+    <result column="publishTime" jdbcType="TIMESTAMP" property="publishtime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, version, returnType, bidRequestType, bidRequestState, bidRequestAmount, currentRate, 
+    monthes2Return, bidCount, totalRewardAmount, currentSum, title, description, note, 
+    disableDate, createuser_id, disableDays, minBidAmount, applyTime, publishTime
+  </sql>
+  <select id="selectByExample" parameterType="com.zxcf.core.entity.BidrequestExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bidrequest
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bidrequest
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bidrequest
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zxcf.core.entity.BidrequestExample">
+    delete from bidrequest
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zxcf.core.entity.Bidrequest">
+    insert into bidrequest (id, version, returnType, 
+      bidRequestType, bidRequestState, bidRequestAmount, 
+      currentRate, monthes2Return, bidCount, 
+      totalRewardAmount, currentSum, title, 
+      description, note, disableDate, 
+      createuser_id, disableDays, minBidAmount, 
+      applyTime, publishTime)
+    values (#{id,jdbcType=BIGINT}, #{version,jdbcType=INTEGER}, #{returntype,jdbcType=INTEGER}, 
+      #{bidrequesttype,jdbcType=TINYINT}, #{bidrequeststate,jdbcType=TINYINT}, #{bidrequestamount,jdbcType=DECIMAL}, 
+      #{currentrate,jdbcType=DECIMAL}, #{monthes2return,jdbcType=TINYINT}, #{bidcount,jdbcType=INTEGER}, 
+      #{totalrewardamount,jdbcType=DECIMAL}, #{currentsum,jdbcType=DECIMAL}, #{title,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, #{disabledate,jdbcType=TIMESTAMP}, 
+      #{createuserId,jdbcType=BIGINT}, #{disabledays,jdbcType=TINYINT}, #{minbidamount,jdbcType=DECIMAL}, 
+      #{applytime,jdbcType=TIMESTAMP}, #{publishtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxcf.core.entity.Bidrequest">
+    insert into bidrequest
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="returntype != null">
+        returnType,
+      </if>
+      <if test="bidrequesttype != null">
+        bidRequestType,
+      </if>
+      <if test="bidrequeststate != null">
+        bidRequestState,
+      </if>
+      <if test="bidrequestamount != null">
+        bidRequestAmount,
+      </if>
+      <if test="currentrate != null">
+        currentRate,
+      </if>
+      <if test="monthes2return != null">
+        monthes2Return,
+      </if>
+      <if test="bidcount != null">
+        bidCount,
+      </if>
+      <if test="totalrewardamount != null">
+        totalRewardAmount,
+      </if>
+      <if test="currentsum != null">
+        currentSum,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+      <if test="disabledate != null">
+        disableDate,
+      </if>
+      <if test="createuserId != null">
+        createuser_id,
+      </if>
+      <if test="disabledays != null">
+        disableDays,
+      </if>
+      <if test="minbidamount != null">
+        minBidAmount,
+      </if>
+      <if test="applytime != null">
+        applyTime,
+      </if>
+      <if test="publishtime != null">
+        publishTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="returntype != null">
+        #{returntype,jdbcType=INTEGER},
+      </if>
+      <if test="bidrequesttype != null">
+        #{bidrequesttype,jdbcType=TINYINT},
+      </if>
+      <if test="bidrequeststate != null">
+        #{bidrequeststate,jdbcType=TINYINT},
+      </if>
+      <if test="bidrequestamount != null">
+        #{bidrequestamount,jdbcType=DECIMAL},
+      </if>
+      <if test="currentrate != null">
+        #{currentrate,jdbcType=DECIMAL},
+      </if>
+      <if test="monthes2return != null">
+        #{monthes2return,jdbcType=TINYINT},
+      </if>
+      <if test="bidcount != null">
+        #{bidcount,jdbcType=INTEGER},
+      </if>
+      <if test="totalrewardamount != null">
+        #{totalrewardamount,jdbcType=DECIMAL},
+      </if>
+      <if test="currentsum != null">
+        #{currentsum,jdbcType=DECIMAL},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="disabledate != null">
+        #{disabledate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createuserId != null">
+        #{createuserId,jdbcType=BIGINT},
+      </if>
+      <if test="disabledays != null">
+        #{disabledays,jdbcType=TINYINT},
+      </if>
+      <if test="minbidamount != null">
+        #{minbidamount,jdbcType=DECIMAL},
+      </if>
+      <if test="applytime != null">
+        #{applytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishtime != null">
+        #{publishtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zxcf.core.entity.BidrequestExample" resultType="java.lang.Long">
+    select count(*) from bidrequest
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bidrequest
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.version != null">
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+      <if test="record.returntype != null">
+        returnType = #{record.returntype,jdbcType=INTEGER},
+      </if>
+      <if test="record.bidrequesttype != null">
+        bidRequestType = #{record.bidrequesttype,jdbcType=TINYINT},
+      </if>
+      <if test="record.bidrequeststate != null">
+        bidRequestState = #{record.bidrequeststate,jdbcType=TINYINT},
+      </if>
+      <if test="record.bidrequestamount != null">
+        bidRequestAmount = #{record.bidrequestamount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.currentrate != null">
+        currentRate = #{record.currentrate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.monthes2return != null">
+        monthes2Return = #{record.monthes2return,jdbcType=TINYINT},
+      </if>
+      <if test="record.bidcount != null">
+        bidCount = #{record.bidcount,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalrewardamount != null">
+        totalRewardAmount = #{record.totalrewardamount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.currentsum != null">
+        currentSum = #{record.currentsum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.note != null">
+        note = #{record.note,jdbcType=VARCHAR},
+      </if>
+      <if test="record.disabledate != null">
+        disableDate = #{record.disabledate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createuserId != null">
+        createuser_id = #{record.createuserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.disabledays != null">
+        disableDays = #{record.disabledays,jdbcType=TINYINT},
+      </if>
+      <if test="record.minbidamount != null">
+        minBidAmount = #{record.minbidamount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.applytime != null">
+        applyTime = #{record.applytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.publishtime != null">
+        publishTime = #{record.publishtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bidrequest
+    set id = #{record.id,jdbcType=BIGINT},
+      version = #{record.version,jdbcType=INTEGER},
+      returnType = #{record.returntype,jdbcType=INTEGER},
+      bidRequestType = #{record.bidrequesttype,jdbcType=TINYINT},
+      bidRequestState = #{record.bidrequeststate,jdbcType=TINYINT},
+      bidRequestAmount = #{record.bidrequestamount,jdbcType=DECIMAL},
+      currentRate = #{record.currentrate,jdbcType=DECIMAL},
+      monthes2Return = #{record.monthes2return,jdbcType=TINYINT},
+      bidCount = #{record.bidcount,jdbcType=INTEGER},
+      totalRewardAmount = #{record.totalrewardamount,jdbcType=DECIMAL},
+      currentSum = #{record.currentsum,jdbcType=DECIMAL},
+      title = #{record.title,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      note = #{record.note,jdbcType=VARCHAR},
+      disableDate = #{record.disabledate,jdbcType=TIMESTAMP},
+      createuser_id = #{record.createuserId,jdbcType=BIGINT},
+      disableDays = #{record.disabledays,jdbcType=TINYINT},
+      minBidAmount = #{record.minbidamount,jdbcType=DECIMAL},
+      applyTime = #{record.applytime,jdbcType=TIMESTAMP},
+      publishTime = #{record.publishtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxcf.core.entity.Bidrequest">
+    update bidrequest
+    <set>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="returntype != null">
+        returnType = #{returntype,jdbcType=INTEGER},
+      </if>
+      <if test="bidrequesttype != null">
+        bidRequestType = #{bidrequesttype,jdbcType=TINYINT},
+      </if>
+      <if test="bidrequeststate != null">
+        bidRequestState = #{bidrequeststate,jdbcType=TINYINT},
+      </if>
+      <if test="bidrequestamount != null">
+        bidRequestAmount = #{bidrequestamount,jdbcType=DECIMAL},
+      </if>
+      <if test="currentrate != null">
+        currentRate = #{currentrate,jdbcType=DECIMAL},
+      </if>
+      <if test="monthes2return != null">
+        monthes2Return = #{monthes2return,jdbcType=TINYINT},
+      </if>
+      <if test="bidcount != null">
+        bidCount = #{bidcount,jdbcType=INTEGER},
+      </if>
+      <if test="totalrewardamount != null">
+        totalRewardAmount = #{totalrewardamount,jdbcType=DECIMAL},
+      </if>
+      <if test="currentsum != null">
+        currentSum = #{currentsum,jdbcType=DECIMAL},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="disabledate != null">
+        disableDate = #{disabledate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createuserId != null">
+        createuser_id = #{createuserId,jdbcType=BIGINT},
+      </if>
+      <if test="disabledays != null">
+        disableDays = #{disabledays,jdbcType=TINYINT},
+      </if>
+      <if test="minbidamount != null">
+        minBidAmount = #{minbidamount,jdbcType=DECIMAL},
+      </if>
+      <if test="applytime != null">
+        applyTime = #{applytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishtime != null">
+        publishTime = #{publishtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxcf.core.entity.Bidrequest">
+    update bidrequest
+    set version = #{version,jdbcType=INTEGER},
+      returnType = #{returntype,jdbcType=INTEGER},
+      bidRequestType = #{bidrequesttype,jdbcType=TINYINT},
+      bidRequestState = #{bidrequeststate,jdbcType=TINYINT},
+      bidRequestAmount = #{bidrequestamount,jdbcType=DECIMAL},
+      currentRate = #{currentrate,jdbcType=DECIMAL},
+      monthes2Return = #{monthes2return,jdbcType=TINYINT},
+      bidCount = #{bidcount,jdbcType=INTEGER},
+      totalRewardAmount = #{totalrewardamount,jdbcType=DECIMAL},
+      currentSum = #{currentsum,jdbcType=DECIMAL},
+      title = #{title,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR},
+      disableDate = #{disabledate,jdbcType=TIMESTAMP},
+      createuser_id = #{createuserId,jdbcType=BIGINT},
+      disableDays = #{disabledays,jdbcType=TINYINT},
+      minBidAmount = #{minbidamount,jdbcType=DECIMAL},
+      applyTime = #{applytime,jdbcType=TIMESTAMP},
+      publishTime = #{publishtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxcf.core.mapper.PaymentscheduledetailMapper">
+  <resultMap id="BaseResultMap" type="com.zxcf.core.entity.Paymentscheduledetail">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="bidAmount" jdbcType="DECIMAL" property="bidamount" />
+    <result column="bid_id" jdbcType="BIGINT" property="bidId" />
+    <result column="totalAmount" jdbcType="DECIMAL" property="totalamount" />
+    <result column="principal" jdbcType="DECIMAL" property="principal" />
+    <result column="interest" jdbcType="DECIMAL" property="interest" />
+    <result column="monthIndex" jdbcType="INTEGER" property="monthindex" />
+    <result column="deadLine" jdbcType="TIMESTAMP" property="deadline" />
+    <result column="bidrequest_id" jdbcType="BIGINT" property="bidrequestId" />
+    <result column="payDate" jdbcType="TIMESTAMP" property="paydate" />
+    <result column="returnType" jdbcType="INTEGER" property="returntype" />
+    <result column="paymentSchedule_id" jdbcType="BIGINT" property="paymentscheduleId" />
+    <result column="fromLogininfo_id" jdbcType="BIGINT" property="fromlogininfoId" />
+    <result column="toLogininfo_id" jdbcType="BIGINT" property="tologininfoId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, bidAmount, bid_id, totalAmount, principal, interest, monthIndex, deadLine, bidrequest_id, 
+    payDate, returnType, paymentSchedule_id, fromLogininfo_id, toLogininfo_id
+  </sql>
+  <select id="selectByExample" parameterType="com.zxcf.core.entity.PaymentscheduledetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from paymentscheduledetail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from paymentscheduledetail
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from paymentscheduledetail
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zxcf.core.entity.PaymentscheduledetailExample">
+    delete from paymentscheduledetail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zxcf.core.entity.Paymentscheduledetail">
+    insert into paymentscheduledetail (id, bidAmount, bid_id, 
+      totalAmount, principal, interest, 
+      monthIndex, deadLine, bidrequest_id, 
+      payDate, returnType, paymentSchedule_id, 
+      fromLogininfo_id, toLogininfo_id)
+    values (#{id,jdbcType=BIGINT}, #{bidamount,jdbcType=DECIMAL}, #{bidId,jdbcType=BIGINT}, 
+      #{totalamount,jdbcType=DECIMAL}, #{principal,jdbcType=DECIMAL}, #{interest,jdbcType=DECIMAL}, 
+      #{monthindex,jdbcType=INTEGER}, #{deadline,jdbcType=TIMESTAMP}, #{bidrequestId,jdbcType=BIGINT}, 
+      #{paydate,jdbcType=TIMESTAMP}, #{returntype,jdbcType=INTEGER}, #{paymentscheduleId,jdbcType=BIGINT}, 
+      #{fromlogininfoId,jdbcType=BIGINT}, #{tologininfoId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxcf.core.entity.Paymentscheduledetail">
+    insert into paymentscheduledetail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="bidamount != null">
+        bidAmount,
+      </if>
+      <if test="bidId != null">
+        bid_id,
+      </if>
+      <if test="totalamount != null">
+        totalAmount,
+      </if>
+      <if test="principal != null">
+        principal,
+      </if>
+      <if test="interest != null">
+        interest,
+      </if>
+      <if test="monthindex != null">
+        monthIndex,
+      </if>
+      <if test="deadline != null">
+        deadLine,
+      </if>
+      <if test="bidrequestId != null">
+        bidrequest_id,
+      </if>
+      <if test="paydate != null">
+        payDate,
+      </if>
+      <if test="returntype != null">
+        returnType,
+      </if>
+      <if test="paymentscheduleId != null">
+        paymentSchedule_id,
+      </if>
+      <if test="fromlogininfoId != null">
+        fromLogininfo_id,
+      </if>
+      <if test="tologininfoId != null">
+        toLogininfo_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="bidamount != null">
+        #{bidamount,jdbcType=DECIMAL},
+      </if>
+      <if test="bidId != null">
+        #{bidId,jdbcType=BIGINT},
+      </if>
+      <if test="totalamount != null">
+        #{totalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="principal != null">
+        #{principal,jdbcType=DECIMAL},
+      </if>
+      <if test="interest != null">
+        #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="monthindex != null">
+        #{monthindex,jdbcType=INTEGER},
+      </if>
+      <if test="deadline != null">
+        #{deadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bidrequestId != null">
+        #{bidrequestId,jdbcType=BIGINT},
+      </if>
+      <if test="paydate != null">
+        #{paydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returntype != null">
+        #{returntype,jdbcType=INTEGER},
+      </if>
+      <if test="paymentscheduleId != null">
+        #{paymentscheduleId,jdbcType=BIGINT},
+      </if>
+      <if test="fromlogininfoId != null">
+        #{fromlogininfoId,jdbcType=BIGINT},
+      </if>
+      <if test="tologininfoId != null">
+        #{tologininfoId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zxcf.core.entity.PaymentscheduledetailExample" resultType="java.lang.Long">
+    select count(*) from paymentscheduledetail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update paymentscheduledetail
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.bidamount != null">
+        bidAmount = #{record.bidamount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.bidId != null">
+        bid_id = #{record.bidId,jdbcType=BIGINT},
+      </if>
+      <if test="record.totalamount != null">
+        totalAmount = #{record.totalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.principal != null">
+        principal = #{record.principal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.interest != null">
+        interest = #{record.interest,jdbcType=DECIMAL},
+      </if>
+      <if test="record.monthindex != null">
+        monthIndex = #{record.monthindex,jdbcType=INTEGER},
+      </if>
+      <if test="record.deadline != null">
+        deadLine = #{record.deadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.bidrequestId != null">
+        bidrequest_id = #{record.bidrequestId,jdbcType=BIGINT},
+      </if>
+      <if test="record.paydate != null">
+        payDate = #{record.paydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.returntype != null">
+        returnType = #{record.returntype,jdbcType=INTEGER},
+      </if>
+      <if test="record.paymentscheduleId != null">
+        paymentSchedule_id = #{record.paymentscheduleId,jdbcType=BIGINT},
+      </if>
+      <if test="record.fromlogininfoId != null">
+        fromLogininfo_id = #{record.fromlogininfoId,jdbcType=BIGINT},
+      </if>
+      <if test="record.tologininfoId != null">
+        toLogininfo_id = #{record.tologininfoId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update paymentscheduledetail
+    set id = #{record.id,jdbcType=BIGINT},
+      bidAmount = #{record.bidamount,jdbcType=DECIMAL},
+      bid_id = #{record.bidId,jdbcType=BIGINT},
+      totalAmount = #{record.totalamount,jdbcType=DECIMAL},
+      principal = #{record.principal,jdbcType=DECIMAL},
+      interest = #{record.interest,jdbcType=DECIMAL},
+      monthIndex = #{record.monthindex,jdbcType=INTEGER},
+      deadLine = #{record.deadline,jdbcType=TIMESTAMP},
+      bidrequest_id = #{record.bidrequestId,jdbcType=BIGINT},
+      payDate = #{record.paydate,jdbcType=TIMESTAMP},
+      returnType = #{record.returntype,jdbcType=INTEGER},
+      paymentSchedule_id = #{record.paymentscheduleId,jdbcType=BIGINT},
+      fromLogininfo_id = #{record.fromlogininfoId,jdbcType=BIGINT},
+      toLogininfo_id = #{record.tologininfoId,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxcf.core.entity.Paymentscheduledetail">
+    update paymentscheduledetail
+    <set>
+      <if test="bidamount != null">
+        bidAmount = #{bidamount,jdbcType=DECIMAL},
+      </if>
+      <if test="bidId != null">
+        bid_id = #{bidId,jdbcType=BIGINT},
+      </if>
+      <if test="totalamount != null">
+        totalAmount = #{totalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="principal != null">
+        principal = #{principal,jdbcType=DECIMAL},
+      </if>
+      <if test="interest != null">
+        interest = #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="monthindex != null">
+        monthIndex = #{monthindex,jdbcType=INTEGER},
+      </if>
+      <if test="deadline != null">
+        deadLine = #{deadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bidrequestId != null">
+        bidrequest_id = #{bidrequestId,jdbcType=BIGINT},
+      </if>
+      <if test="paydate != null">
+        payDate = #{paydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returntype != null">
+        returnType = #{returntype,jdbcType=INTEGER},
+      </if>
+      <if test="paymentscheduleId != null">
+        paymentSchedule_id = #{paymentscheduleId,jdbcType=BIGINT},
+      </if>
+      <if test="fromlogininfoId != null">
+        fromLogininfo_id = #{fromlogininfoId,jdbcType=BIGINT},
+      </if>
+      <if test="tologininfoId != null">
+        toLogininfo_id = #{tologininfoId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxcf.core.entity.Paymentscheduledetail">
+    update paymentscheduledetail
+    set bidAmount = #{bidamount,jdbcType=DECIMAL},
+      bid_id = #{bidId,jdbcType=BIGINT},
+      totalAmount = #{totalamount,jdbcType=DECIMAL},
+      principal = #{principal,jdbcType=DECIMAL},
+      interest = #{interest,jdbcType=DECIMAL},
+      monthIndex = #{monthindex,jdbcType=INTEGER},
+      deadLine = #{deadline,jdbcType=TIMESTAMP},
+      bidrequest_id = #{bidrequestId,jdbcType=BIGINT},
+      payDate = #{paydate,jdbcType=TIMESTAMP},
+      returnType = #{returntype,jdbcType=INTEGER},
+      paymentSchedule_id = #{paymentscheduleId,jdbcType=BIGINT},
+      fromLogininfo_id = #{fromlogininfoId,jdbcType=BIGINT},
+      toLogininfo_id = #{tologininfoId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

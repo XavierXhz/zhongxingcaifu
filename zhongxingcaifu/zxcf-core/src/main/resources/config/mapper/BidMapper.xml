@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxcf.core.mapper.BidMapper">
+  <resultMap id="BaseResultMap" type="com.zxcf.core.entity.Bid">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="actualRate" jdbcType="DECIMAL" property="actualrate" />
+    <result column="availableAmount" jdbcType="DECIMAL" property="availableamount" />
+    <result column="bidrequest_id" jdbcType="BIGINT" property="bidrequestId" />
+    <result column="bidUser_id" jdbcType="BIGINT" property="biduserId" />
+    <result column="bidTime" jdbcType="TIMESTAMP" property="bidtime" />
+    <result column="bidRequestTitle" jdbcType="VARCHAR" property="bidrequesttitle" />
+    <result column="bidRequestState" jdbcType="INTEGER" property="bidrequeststate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, actualRate, availableAmount, bidrequest_id, bidUser_id, bidTime, bidRequestTitle, 
+    bidRequestState
+  </sql>
+  <select id="selectByExample" parameterType="com.zxcf.core.entity.BidExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bid
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bid
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bid
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zxcf.core.entity.BidExample">
+    delete from bid
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zxcf.core.entity.Bid">
+    insert into bid (id, actualRate, availableAmount, 
+      bidrequest_id, bidUser_id, bidTime, 
+      bidRequestTitle, bidRequestState)
+    values (#{id,jdbcType=BIGINT}, #{actualrate,jdbcType=DECIMAL}, #{availableamount,jdbcType=DECIMAL}, 
+      #{bidrequestId,jdbcType=BIGINT}, #{biduserId,jdbcType=BIGINT}, #{bidtime,jdbcType=TIMESTAMP}, 
+      #{bidrequesttitle,jdbcType=VARCHAR}, #{bidrequeststate,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxcf.core.entity.Bid">
+    insert into bid
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="actualrate != null">
+        actualRate,
+      </if>
+      <if test="availableamount != null">
+        availableAmount,
+      </if>
+      <if test="bidrequestId != null">
+        bidrequest_id,
+      </if>
+      <if test="biduserId != null">
+        bidUser_id,
+      </if>
+      <if test="bidtime != null">
+        bidTime,
+      </if>
+      <if test="bidrequesttitle != null">
+        bidRequestTitle,
+      </if>
+      <if test="bidrequeststate != null">
+        bidRequestState,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="actualrate != null">
+        #{actualrate,jdbcType=DECIMAL},
+      </if>
+      <if test="availableamount != null">
+        #{availableamount,jdbcType=DECIMAL},
+      </if>
+      <if test="bidrequestId != null">
+        #{bidrequestId,jdbcType=BIGINT},
+      </if>
+      <if test="biduserId != null">
+        #{biduserId,jdbcType=BIGINT},
+      </if>
+      <if test="bidtime != null">
+        #{bidtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bidrequesttitle != null">
+        #{bidrequesttitle,jdbcType=VARCHAR},
+      </if>
+      <if test="bidrequeststate != null">
+        #{bidrequeststate,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zxcf.core.entity.BidExample" resultType="java.lang.Long">
+    select count(*) from bid
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bid
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.actualrate != null">
+        actualRate = #{record.actualrate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.availableamount != null">
+        availableAmount = #{record.availableamount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.bidrequestId != null">
+        bidrequest_id = #{record.bidrequestId,jdbcType=BIGINT},
+      </if>
+      <if test="record.biduserId != null">
+        bidUser_id = #{record.biduserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.bidtime != null">
+        bidTime = #{record.bidtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.bidrequesttitle != null">
+        bidRequestTitle = #{record.bidrequesttitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bidrequeststate != null">
+        bidRequestState = #{record.bidrequeststate,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bid
+    set id = #{record.id,jdbcType=BIGINT},
+      actualRate = #{record.actualrate,jdbcType=DECIMAL},
+      availableAmount = #{record.availableamount,jdbcType=DECIMAL},
+      bidrequest_id = #{record.bidrequestId,jdbcType=BIGINT},
+      bidUser_id = #{record.biduserId,jdbcType=BIGINT},
+      bidTime = #{record.bidtime,jdbcType=TIMESTAMP},
+      bidRequestTitle = #{record.bidrequesttitle,jdbcType=VARCHAR},
+      bidRequestState = #{record.bidrequeststate,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxcf.core.entity.Bid">
+    update bid
+    <set>
+      <if test="actualrate != null">
+        actualRate = #{actualrate,jdbcType=DECIMAL},
+      </if>
+      <if test="availableamount != null">
+        availableAmount = #{availableamount,jdbcType=DECIMAL},
+      </if>
+      <if test="bidrequestId != null">
+        bidrequest_id = #{bidrequestId,jdbcType=BIGINT},
+      </if>
+      <if test="biduserId != null">
+        bidUser_id = #{biduserId,jdbcType=BIGINT},
+      </if>
+      <if test="bidtime != null">
+        bidTime = #{bidtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bidrequesttitle != null">
+        bidRequestTitle = #{bidrequesttitle,jdbcType=VARCHAR},
+      </if>
+      <if test="bidrequeststate != null">
+        bidRequestState = #{bidrequeststate,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxcf.core.entity.Bid">
+    update bid
+    set actualRate = #{actualrate,jdbcType=DECIMAL},
+      availableAmount = #{availableamount,jdbcType=DECIMAL},
+      bidrequest_id = #{bidrequestId,jdbcType=BIGINT},
+      bidUser_id = #{biduserId,jdbcType=BIGINT},
+      bidTime = #{bidtime,jdbcType=TIMESTAMP},
+      bidRequestTitle = #{bidrequesttitle,jdbcType=VARCHAR},
+      bidRequestState = #{bidrequeststate,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
